@@ -1,0 +1,125 @@
+import { OTPInput, OTPInputRef, type SlotProps } from "input-otp-native";
+import { Alert, Text, View } from "react-native";
+
+import { useEffect, useRef } from "react";
+
+import { cn } from "@/lib/utils";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withSequence,
+  withSpring,
+  withTiming,
+} from "react-native-reanimated";
+
+// import { cn } from "./utils";
+
+export default function StripeOTPInput() {
+  const ref = useRef<OTPInputRef>(null);
+  const onComplete = (code: string) => {
+    Alert.alert("Completed with code:", code);
+    ref.current?.clear();
+  };
+
+  return (
+    <OTPInput
+      ref={ref}
+      onComplete={onComplete}
+      maxLength={6}
+      render={({ slots }) => (
+        <View className="flex-1 flex-row items-center justify-center my-4">
+          <View className="flex-row">
+            {slots.slice(0, 3).map((slot, idx) => (
+              <Slot key={idx} {...slot} index={idx} />
+            ))}
+          </View>
+          <FakeDash />
+          <View className="flex-row">
+            {slots.slice(3).map((slot, idx) => (
+              <Slot key={idx} {...slot} index={idx} />
+            ))}
+          </View>
+        </View>
+      )}
+    />
+  );
+}
+
+function Slot({ char, isActive, hasFakeCaret, index }: SlotProps & { index: number }) {
+  const isFirst = index === 0;
+  const isLast = index === 2;
+  const translateY = useSharedValue(0);
+  const opacity = useSharedValue(0);
+
+  useEffect(() => {
+    if (char !== null) {
+      // Animate in when character appears
+      translateY.value = withSpring(0, {
+        damping: 15,
+        stiffness: 150,
+      });
+      opacity.value = withSpring(1, {
+        damping: 15,
+        stiffness: 150,
+      });
+    }
+  }, [char, translateY, opacity]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: translateY.value }],
+    opacity: opacity.value,
+  }));
+
+  return (
+    <View
+      className={cn(`w-12 h-16 items-center justify-center bg-gray-50`, "border border-gray-200", {
+        "rounded-r-lg": isLast,
+        "rounded-l-lg": isFirst,
+        "bg-white border-black": isActive,
+      })}
+    >
+      <Animated.View style={animatedStyle}>
+        {char !== null && <Text className="text-2xl font-medium text-gray-900">{char}</Text>}
+      </Animated.View>
+      {hasFakeCaret && <FakeCaret />}
+    </View>
+  );
+}
+
+function FakeDash() {
+  return (
+    <View className="w-8 items-center justify-center">
+      <View className="w-2 h-0.5 bg-gray-200 rounded-sm" />
+    </View>
+  );
+}
+
+function FakeCaret() {
+  const opacity = useSharedValue(1);
+
+  useEffect(() => {
+    opacity.value = withRepeat(
+      withSequence(withTiming(0, { duration: 500 }), withTiming(1, { duration: 500 })),
+      -1,
+      true
+    );
+  }, [opacity]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+  }));
+
+  const baseStyle = {
+    width: 2,
+    height: 32,
+    backgroundColor: "black",
+    borderRadius: 1,
+  };
+
+  return (
+    <View className="absolute w-full h-full items-center justify-center">
+      <Animated.View style={[baseStyle, animatedStyle]} />
+    </View>
+  );
+}
