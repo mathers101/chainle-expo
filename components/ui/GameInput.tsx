@@ -1,12 +1,16 @@
-import React, { useRef } from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
 import { OtpInput, OtpInputRef, Theme } from "./otp-input.tsx";
 
 interface GameInputProps {
+  ref?: React.Ref<OtpInputRef>;
   defaultValue?: string;
   value?: string;
   onChange?: (val: string) => void;
   onPress?: () => void;
+  onEnterKeyPress?: () => void;
+  onBackspaceKeyPress?: () => void;
+  nextInputRef?: OtpInputRef;
   cursorStyle?: "default" | "pointer" | "not-allowed";
   disabled?: boolean;
   animatedInputIndex?: number;
@@ -15,20 +19,22 @@ interface GameInputProps {
 }
 
 export default function GameInput({
+  ref,
   defaultValue,
   value,
   onChange,
   onPress,
+  onEnterKeyPress,
+  onBackspaceKeyPress,
   cursorStyle,
   disabled = false,
+  nextInputRef,
   animatedInputIndex,
   autoFocus = false,
   styles = {},
 }: GameInputProps) {
   // const { colorScheme } = useColorScheme();
   // const isDark = colorScheme === "dark";
-  const ref = useRef<OtpInputRef>(null);
-
   const theme = StyleSheet.create({
     containerStyle: { ...defaultStyles.container, ...styles?.containerStyle },
     pinCodeContainerStyle: { ...defaultStyles.pinCodeContainer, ...styles?.pinCodeContainerStyle },
@@ -52,6 +58,8 @@ export default function GameInput({
       onPress={onPress}
       focusColor="gray-500"
       text={value}
+      onEnterKeyPress={onEnterKeyPress}
+      onBackspaceKeyPress={onBackspaceKeyPress}
       defaultText={defaultValue}
       animatedInputIndex={animatedInputIndex}
       type="alpha"

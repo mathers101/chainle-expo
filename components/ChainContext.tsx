@@ -1,5 +1,15 @@
 import { saveToLocalStorage } from "@/lib/saveToLocalStorage";
-import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, type PropsWithChildren } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  type PropsWithChildren,
+} from "react";
+import { OtpInputRef } from "./ui/otp-input.tsx";
 
 export const MAX_GUESSES = 5;
 
@@ -14,6 +24,7 @@ interface ChainContextData {
   solvedByIndex: boolean[];
   currentHintIndex?: number;
   currentGuessValid: boolean;
+  inputRefs: React.RefObject<(OtpInputRef | null)[]>;
   status: Status;
   guessesRemaining: number;
 }
@@ -151,6 +162,8 @@ export function ChainProvider({ children, correctChain, savedData }: PropsWithCh
     solvedByIndex[index] ? correctWord : correctWord.slice(0, hintsByIndex[index] + 1)
   );
 
+  const inputRefs = useRef<(OtpInputRef | null)[]>(correctChain.map(() => null));
+
   const currentGuessValid = !!currentGuess?.some((s, index) => s.length > currentChain[index].length);
 
   const numGuesses = userGuesses.length;
@@ -158,8 +171,6 @@ export function ChainProvider({ children, correctChain, savedData }: PropsWithCh
   const guessesRemaining = MAX_GUESSES - numGuesses;
 
   const currentHintIndex = hints?.at(userGuesses.length - 1);
-
-  console.log("currentHintIndex", currentHintIndex);
 
   const confirmGuess = useCallback(() => {
     dispatch({ type: "confirmGuess", payload: { currentGuess } });
@@ -212,6 +223,7 @@ export function ChainProvider({ children, correctChain, savedData }: PropsWithCh
       currentChain,
       userGuesses,
       currentGuessValid,
+      inputRefs,
       guessesRemaining,
       solvedByIndex,
     }),
@@ -223,6 +235,7 @@ export function ChainProvider({ children, correctChain, savedData }: PropsWithCh
       currentChain,
       userGuesses,
       currentGuessValid,
+      inputRefs,
       guessesRemaining,
       solvedByIndex,
     ]

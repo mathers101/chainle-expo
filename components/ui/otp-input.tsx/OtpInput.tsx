@@ -20,6 +20,8 @@ export const OtpInput = forwardRef<OtpInputRef, OtpInputProps>((props, ref) => {
     hideStick,
     cursorStyle,
     focusColor = "#A4D0A4",
+    onEnterKeyPress,
+    onBackspaceKeyPress,
     animatedInputIndex,
     focusStickBlinkingDuration,
     secureTextEntry = false,
@@ -68,7 +70,11 @@ export const OtpInput = forwardRef<OtpInputRef, OtpInputProps>((props, ref) => {
   };
 
   return (
-    <Pressable style={[styles.container, containerStyle]} onPress={handlePress}>
+    <Pressable
+      style={[styles.container, containerStyle]}
+      // onFocus={inputRef.current ? () => inputRef.current?.focus() : undefined}
+      onPress={handlePress}
+    >
       {Array(numberOfDigits)
         .fill(0)
         .map((_, index) => {
@@ -126,6 +132,13 @@ export const OtpInput = forwardRef<OtpInputRef, OtpInputProps>((props, ref) => {
         testID="otp-input-hidden"
         onFocus={handleFocus}
         onBlur={handleBlur}
+        onKeyPress={(e) => {
+          if (e.nativeEvent.key === "Enter" || e.nativeEvent.key === "Return") {
+            onEnterKeyPress?.();
+          } else if (e.nativeEvent.key === "Backspace") {
+            onBackspaceKeyPress?.();
+          }
+        }}
         caretHidden={Platform.OS === "ios"}
         {...textInputProps}
         style={[styles.hiddenInput, textInputProps?.style, { cursor: cursorStyle }]}

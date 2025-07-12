@@ -5,7 +5,7 @@ import GameInput from "./ui/GameInput";
 import { Theme } from "./ui/otp-input.tsx";
 
 export default function WordDisplay({ index }: { index: number }) {
-  const { status, correctChain, currentChain, solvedByIndex, guessesRemaining } = useChainData();
+  const { status, correctChain, currentChain, solvedByIndex, guessesRemaining, inputRefs } = useChainData();
   const { selectHintIndex } = useChainApi();
 
   const isInitialWord = index === 0 || index === correctChain.length - 1;

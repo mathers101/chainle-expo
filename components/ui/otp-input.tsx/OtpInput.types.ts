@@ -11,6 +11,8 @@ export interface OtpInputProps {
   onFocus?: () => void;
   onBlur?: () => void;
   cursorStyle?: "default" | "pointer" | "not-allowed";
+  onEnterKeyPress?: () => void;
+  onBackspaceKeyPress?: () => void;
   animatedInputIndex?: number;
   blurOnFilled?: boolean;
   hideStick?: boolean;
