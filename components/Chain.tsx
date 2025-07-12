@@ -8,7 +8,7 @@ export const MAX_WIDTH = 380;
 
 export default function Chain() {
   const { solvedByIndex, currentChain, status, currentGuessValid } = useChainData();
-  const { confirmGuess, resetGame, setStatus } = useChainApi();
+  const { confirmGuess, resetGame, setStatus, resetGuess } = useChainApi();
 
   const initialRevealedIndexes =
     status === "guessing"
@@ -35,7 +35,10 @@ export default function Chain() {
       setRevealedIndexes((prev) => [...prev, idx]);
       await new Promise((res) => setTimeout(res, 500));
     }
-    setTimeout(() => setStatus("selecting"), 500);
+    setTimeout(() => {
+      setStatus("selecting");
+      resetGuess();
+    }, 500);
   };
 
   useEffect(() => {

@@ -9,6 +9,7 @@ interface GameInputProps {
   onPress?: () => void;
   cursorStyle?: "default" | "pointer" | "not-allowed";
   disabled?: boolean;
+  animatedInputIndex?: number;
   autoFocus?: boolean;
   styles?: Theme;
 }
@@ -20,6 +21,7 @@ export default function GameInput({
   onPress,
   cursorStyle,
   disabled = false,
+  animatedInputIndex,
   autoFocus = false,
   styles = {},
 }: GameInputProps) {
@@ -51,6 +53,7 @@ export default function GameInput({
       focusColor="gray-500"
       text={value}
       defaultText={defaultValue}
+      animatedInputIndex={animatedInputIndex}
       type="alpha"
       cursorStyle={cursorStyle}
       onTextChange={onChange}

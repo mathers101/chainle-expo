@@ -9,11 +9,15 @@ export default function WordDisplay({ index }: { index: number }) {
   const { selectHintIndex } = useChainApi();
 
   const isInitialWord = index === 0 || index === correctChain.length - 1;
-  const displayWord = status === "loser" ? correctChain[index] : currentChain[index];
+
+  // this isLoser variable will be true before status === "loser" is set, this is so that the correct answer reveals on the final reveal before the losing message is shown
+  const isLoser = guessesRemaining === 0;
+
+  const displayWord = isLoser ? correctChain[index] : currentChain[index];
   const isSolved = solvedByIndex[index];
   const isSelectable = status === "selecting" && !isSolved;
 
-  const backgroundColor = isInitialWord ? "#facc15" : isSolved ? "#22c55e" : guessesRemaining === 0 ? "#d1d5db" : "";
+  const backgroundColor = isInitialWord ? "#facc15" : isSolved ? "#22c55e" : isLoser ? "#d1d5db" : "";
 
   const handlePress = () => {
     if (isSelectable) {

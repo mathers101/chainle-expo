@@ -11,6 +11,7 @@ export interface OtpInputProps {
   onFocus?: () => void;
   onBlur?: () => void;
   cursorStyle?: "default" | "pointer" | "not-allowed";
+  animatedInputIndex?: number;
   blurOnFilled?: boolean;
   hideStick?: boolean;
   focusStickBlinkingDuration?: number;

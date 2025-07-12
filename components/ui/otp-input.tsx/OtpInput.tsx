@@ -1,6 +1,7 @@
 import * as React from "react";
 import { forwardRef, useImperativeHandle } from "react";
 import { Platform, Pressable, Text, TextInput, View } from "react-native";
+import Animated, { FlipInEasyX } from "react-native-reanimated";
 import { styles } from "./OtpInput.styles";
 import { OtpInputProps, OtpInputRef } from "./OtpInput.types";
 import { VerticalStick } from "./VerticalStick";
@@ -19,6 +20,7 @@ export const OtpInput = forwardRef<OtpInputRef, OtpInputProps>((props, ref) => {
     hideStick,
     cursorStyle,
     focusColor = "#A4D0A4",
+    animatedInputIndex,
     focusStickBlinkingDuration,
     secureTextEntry = false,
     theme = {},
@@ -75,6 +77,7 @@ export const OtpInput = forwardRef<OtpInputRef, OtpInputProps>((props, ref) => {
           const isFocusedInput = index === focusedInputIndex && !disabled && Boolean(isFocused);
           const isFilledLastInput = text.length === numberOfDigits && index === text.length - 1;
           const isFocusedContainer = isFocusedInput || (isFilledLastInput && Boolean(isFocused));
+          const animatedEntry = animatedInputIndex === index;
 
           return (
             <View
@@ -89,18 +92,20 @@ export const OtpInput = forwardRef<OtpInputRef, OtpInputProps>((props, ref) => {
                   focusStickBlinkingDuration={focusStickBlinkingDuration}
                 />
               ) : (
-                <Text
-                  {...textProps}
-                  testID={textProps?.testID ? `${textProps.testID}-${index}` : undefined}
-                  style={[
-                    styles.codeText,
-                    pinCodeTextStyle,
-                    isPlaceholderCell ? placeholderStyle : {},
-                    textProps?.style,
-                  ]}
-                >
-                  {char && secureTextEntry ? "•" : char}
-                </Text>
+                <Animated.View entering={animatedEntry ? FlipInEasyX.duration(1000) : undefined}>
+                  <Text
+                    {...textProps}
+                    testID={textProps?.testID ? `${textProps.testID}-${index}` : undefined}
+                    style={[
+                      styles.codeText,
+                      pinCodeTextStyle,
+                      isPlaceholderCell ? placeholderStyle : {},
+                      textProps?.style,
+                    ]}
+                  >
+                    {char && secureTextEntry ? "•" : char}
+                  </Text>
+                </Animated.View>
               )}
             </View>
           );
