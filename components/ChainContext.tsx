@@ -128,7 +128,7 @@ export function ChainProvider({ children, correctChain, savedData }: PropsWithCh
     }
   }
 
-  const [{ userGuesses, currentSuffixes, hints, status }, dispatch] = useReducer(reducer, defaultInitialState);
+  const [{ userGuesses, currentSuffixes, hints, status }, dispatch] = useReducer(reducer, initialState);
 
   const hintsByIndex: number[] = correctChain.map(() => 0);
   for (let hintIndex of hints) {
