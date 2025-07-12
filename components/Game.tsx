@@ -6,7 +6,7 @@ import GuessesRemaining from "./GuessesRemaining";
 import Share from "./Share";
 
 export default function Game() {
-  const { currentChain, userGuesses, correctChain, guessesRemaining, status } = useChainData();
+  const { userGuesses, correctChain, guessesRemaining, status } = useChainData();
   const gameOver = status === "winner" || status === "loser";
 
   return (
