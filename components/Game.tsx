@@ -10,7 +10,7 @@ export default function Game() {
   const gameOver = status === "winner" || status === "loser";
 
   return (
-    <YStack gap={16} alignItems="center" marginTop={30}>
+    <YStack gap={16} marginHorizontal={8}>
       <GameStatus />
 
       {/* <h2>{`Current chain: ${currentChain.join(" -> ")}`}</h2>
@@ -23,7 +23,6 @@ export default function Game() {
           <GuessesRemaining guessesRemaining={guessesRemaining} />
         )}
       </XStack>
-
       <Chain />
     </YStack>
   );

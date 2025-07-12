@@ -1,11 +1,11 @@
-import { ChainProvider } from "@/components/ChainContext";
-import { createClient } from "@supabase/supabase-js";
-import React, { useEffect, useState } from "react";
-import { Spinner, YStack } from "tamagui";
-
+import { ChainProvider, SaveData } from "@/components/ChainContext";
 import Game from "@/components/Game";
 import { getFromLocalStorage } from "@/lib/saveToLocalStorage";
 import { getTodaysDate } from "@/lib/time";
+import { createClient } from "@supabase/supabase-js";
+import React, { useEffect, useState } from "react";
+import { ScrollView } from "react-native";
+import { Spinner, YStack } from "tamagui";
 
 const SUPABASE_URL = "https://pqcesmmadoqglwvnuval.supabase.co";
 const SUPABASE_ANON_KEY =
@@ -16,7 +16,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 export default function Home() {
   const today = getTodaysDate();
   const [chain, setChain] = useState<string[] | null>(null);
-  const [savedData, setSavedData] = useState(null);
+  const [savedData, setSavedData] = useState<SaveData | null>(null);
 
   const getTodaysChain = async () => {
     const { data } = await supabase.from("chains").select().eq("date", today).maybeSingle();
@@ -40,9 +40,11 @@ export default function Home() {
   }
 
   return (
-    <ChainProvider correctChain={chain} savedData={savedData}>
-      <Game />
-    </ChainProvider>
+    <ScrollView className="justify-center">
+      <ChainProvider correctChain={chain} savedData={savedData}>
+        <Game />
+      </ChainProvider>
+    </ScrollView>
   );
 }
 

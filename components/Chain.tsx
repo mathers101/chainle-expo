@@ -1,6 +1,6 @@
 import { useChainApi, useChainData } from "@/components/ChainContext";
 import { useEffect, useState } from "react";
-import { Button, XStack, YStack } from "tamagui";
+import { Button, View, XStack, YStack } from "tamagui";
 import WordDisplay from "./WordDisplay";
 import WordInput from "./WordInput";
 
@@ -48,6 +48,7 @@ export default function Chain() {
 
   return (
     <YStack gap="$2" alignItems="center">
+      {/* <YStack gap="$2"> */}
       {currentChain.map((_, index) => (
         <XStack key={index} alignItems="center">
           {/* {showDisplayInput(index) ? ( */}
@@ -58,26 +59,29 @@ export default function Chain() {
           )}
         </XStack>
       ))}
-      {gameOver ? (
-        <Button
-          style={{ width: "100%", height: 60, backgroundColor: "#FCA5A5", color: "#7F1D1D" }} // bg-red-300 text-red-900
-          size="$5"
-          fontWeight="700"
-          onPress={resetGame}
-        >
-          Reset Game
-        </Button>
-      ) : (
-        <Button
-          style={{ width: "100%", height: 60, backgroundColor: "#93C5FD", color: "#1e3a8a" }} // bg-blue-300 text-blue-900
-          size="$5"
-          fontWeight="700"
-          disabled={status !== "guessing" || !currentGuessValid}
-          onPress={handleConfirmGuess}
-        >
-          Confirm Guess
-        </Button>
-      )}
+      {/* </YStack> */}
+      <View marginTop={10} width="100%">
+        {gameOver ? (
+          <Button
+            style={{ width: "100%", height: 60, backgroundColor: "#FCA5A5", color: "#7F1D1D" }} // bg-red-300 text-red-900
+            size="$5"
+            fontWeight="700"
+            onPress={resetGame}
+          >
+            Reset Game
+          </Button>
+        ) : (
+          <Button
+            style={{ width: "100%", height: 60, backgroundColor: "#93C5FD", color: "#1e3a8a" }} // bg-blue-300 text-blue-900
+            size="$5"
+            fontWeight="700"
+            disabled={status !== "guessing" || !currentGuessValid}
+            onPress={handleConfirmGuess}
+          >
+            Confirm Guess
+          </Button>
+        )}
+      </View>
     </YStack>
   );
 }
