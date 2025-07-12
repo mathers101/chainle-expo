@@ -1,6 +1,5 @@
-import * as Clipboard from "expo-clipboard";
-import * as Sharing from "expo-sharing";
-import { Alert } from "react-native";
+// import * as Sharing from "expo-sharing";
+import { Share as ShareNative } from "react-native";
 import { Button } from "tamagui";
 import { getTodaysDate } from "../lib/time";
 import { transpose } from "../lib/transpose";
@@ -34,27 +33,15 @@ export default function Share({ correctChain, userGuesses }: ShareProps) {
     .join("\n");
 
   const shareString = `Chainle ${date}\n${userGuesses.length}/${MAX_GUESSES} attempts\n\n${resultString}`;
+  console.log(shareString);
 
   const handleShare = async () => {
     try {
-      if (await Sharing.isAvailableAsync()) {
-        const isAvailable = await Sharing.isAvailableAsync();
-        if (isAvailable) {
-          await Sharing.shareAsync(shareString, {
-            dialogTitle: "Share your Chainle result",
-            mimeType: "text/plain",
-            UTI: "public.plain-text",
-          });
-          return;
-        }
-      }
-
-      // Fallback: copy to clipboard
-      await Clipboard.setStringAsync(shareString);
-      Alert.alert("Copied!", "Your result has been copied to the clipboard.");
+      await ShareNative.share({
+        message: shareString,
+      });
     } catch (error) {
       console.error("Error sharing:", error);
-      Alert.alert("Error", "Unable to share your result.");
     }
   };
 

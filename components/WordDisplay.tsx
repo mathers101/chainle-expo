@@ -1,5 +1,13 @@
+import { useEffect } from "react";
 import { StyleSheet } from "react-native";
-import Animated, { FlipInEasyX } from "react-native-reanimated";
+import Animated, {
+  FlipInEasyX,
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withSequence,
+  withTiming,
+} from "react-native-reanimated";
 import { useChainApi, useChainData } from "./ChainContext";
 import GameInput from "./ui/GameInput";
 import { Theme } from "./ui/otp-input.tsx";
@@ -34,8 +42,24 @@ export default function WordDisplay({ index }: { index: number }) {
     },
   });
 
+  const translateY = useSharedValue(0);
+
+  useEffect(() => {
+    if (status === "winner") {
+      translateY.value = withRepeat(
+        withSequence(withTiming(-10, { duration: 150 }), withTiming(0, { duration: 150 })),
+        6, // repeat count
+        true // reverse
+      );
+    }
+  }, [status]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: translateY.value }],
+  }));
+
   return (
-    <Animated.View entering={!isInitialWord ? FlipInEasyX.duration(1000) : undefined}>
+    <Animated.View entering={!isInitialWord ? FlipInEasyX.duration(1000) : undefined} style={animatedStyle}>
       <GameInput
         value={displayWord}
         disabled={true}
