@@ -40,7 +40,7 @@ export default function Home() {
   }
 
   return (
-    <ScrollView className="justify-center">
+    <ScrollView className="justify-center h-full">
       <ChainProvider correctChain={chain} savedData={savedData}>
         <Game />
       </ChainProvider>

@@ -12,6 +12,8 @@ export default function GuessesRemaining({ guessesRemaining }: { guessesRemainin
       alignItems="center"
       justifyContent="center"
       minHeight={50}
+      maxWidth={250}
+      marginHorizontal="auto"
       marginBottom={8}
     >
       <Text fontSize={18} fontWeight="600" color={textColor} textAlign="center">

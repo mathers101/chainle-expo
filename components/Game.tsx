@@ -1,5 +1,5 @@
-import { XStack, YStack } from "tamagui";
-import Chain from "./Chain";
+import { YStack } from "tamagui";
+import Chain, { MAX_WIDTH } from "./Chain";
 import { useChainData } from "./ChainContext";
 import GameStatus from "./GameStatus";
 import GuessesRemaining from "./GuessesRemaining";
@@ -10,19 +10,13 @@ export default function Game() {
   const gameOver = status === "winner" || status === "loser";
 
   return (
-    <YStack gap={16} marginHorizontal={8}>
+    <YStack gap={16} marginHorizontal="auto" marginVertical={12} maxWidth={MAX_WIDTH}>
       <GameStatus />
-
-      {/* <h2>{`Current chain: ${currentChain.join(" -> ")}`}</h2>
-      <h2>{`Status: ${status}`}</h2> */}
-
-      <XStack alignItems="center" justifyContent="center" marginBottom={8}>
-        {gameOver ? (
-          <Share correctChain={correctChain} userGuesses={userGuesses} />
-        ) : (
-          <GuessesRemaining guessesRemaining={guessesRemaining} />
-        )}
-      </XStack>
+      {gameOver ? (
+        <Share correctChain={correctChain} userGuesses={userGuesses} />
+      ) : (
+        <GuessesRemaining guessesRemaining={guessesRemaining} />
+      )}
       <Chain />
     </YStack>
   );

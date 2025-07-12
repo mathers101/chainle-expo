@@ -57,25 +57,6 @@ export default function GameInput({
       disabled={disabled}
       autoFocus={autoFocus}
       ref={ref}
-      // hideStick={true}
-      // placeholder="******"
-      // blurOnFilled={true}
-      // disabled={false}
-      // type="numeric"
-      // secureTextEntry={false}
-      // focusStickBlinkingDuration={500}
-      // onFocus={() => console.log("Focused")}
-      // onBlur={() => console.log("Blurred")}
-      // onTextChange={onChange}
-      // onFilled={(text) => console.log(`OTP is ${text}`)}
-      // textInputProps={{
-      //   accessibilityLabel: "One-Time Password",
-      // }}
-      // textProps={{
-      //   accessibilityRole: "text",
-      //   accessibilityLabel: "OTP digit",
-      //   allowFontScaling: false,
-      // }}
       theme={theme}
     />
   );
@@ -87,7 +68,7 @@ const defaultStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#ffffff",
-    borderRadius: 12,
+    borderRadius: 4,
     textTransform: "uppercase",
     borderWidth: 1,
     borderColor: "#e5e7eb", // gray-200
@@ -97,14 +78,13 @@ const defaultStyles = StyleSheet.create({
     flex: 1,
     aspectRatio: 0.75,
     borderRadius: 0,
-    borderLeftWidth: 0,
-    // borderLeftColor: "#e5e7eb", // gray-200
+    overflow: "hidden",
     backgroundColor: "transparent",
     alignItems: "center",
     justifyContent: "center",
   },
   activePinCodeContainer: {
-    borderLeftWidth: 0,
+    borderLeftWidth: 0.75,
     outlineWidth: 1,
     outlineColor: "#000000",
     // borderLeftWidth: 1,
