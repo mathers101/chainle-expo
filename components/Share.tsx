@@ -1,7 +1,7 @@
 import * as Clipboard from "expo-clipboard";
 import * as Sharing from "expo-sharing";
 import { Alert } from "react-native";
-import { Button, Text } from "tamagui";
+import { Button } from "tamagui";
 import { getTodaysDate } from "../lib/time";
 import { transpose } from "../lib/transpose";
 import { MAX_GUESSES, type Guess } from "./ChainContext";
@@ -59,10 +59,13 @@ export default function Share({ correctChain, userGuesses }: ShareProps) {
   };
 
   return (
-    <Button theme="blue" onPress={handleShare} padding="$3" borderRadius="$4">
-      <Text color="white" fontWeight="600">
-        Share your result
-      </Text>
+    <Button
+      style={{ width: "100%", backgroundColor: "#93C5FD", color: "#1e3a8a" }} // bg-blue-300 text-blue-900
+      size="$5"
+      fontWeight="700"
+      onPress={handleShare}
+    >
+      Share your result
     </Button>
   );
 }

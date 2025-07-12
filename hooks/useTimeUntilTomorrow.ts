@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 
-function getTimeUntilTomorrow() {
+const getTimeUntilTomorrow = () => {
   const now = dayjs();
   const tomorrow = now.add(1, "day").startOf("day");
   const diff = tomorrow.diff(now);
@@ -11,9 +11,9 @@ function getTimeUntilTomorrow() {
   const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
   return { hours, minutes, seconds };
-}
+};
 
-export function useTimeUntilTomorrow() {
+export const useTimeUntilTomorrow = () => {
   const [timeLeft, setTimeLeft] = useState(getTimeUntilTomorrow());
 
   useEffect(() => {
@@ -25,4 +25,4 @@ export function useTimeUntilTomorrow() {
   }, []);
 
   return timeLeft;
-}
+};

@@ -1,7 +1,6 @@
 import { ChainProvider } from "@/components/ChainContext";
 import React, { useEffect, useState } from "react";
 import { Spinner, YStack } from "tamagui";
-import "./glob.css";
 
 import Game from "@/components/Game";
 import { getFromLocalStorage } from "@/lib/saveToLocalStorage";

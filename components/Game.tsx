@@ -1,26 +1,20 @@
-import { Text, XStack, YStack } from "tamagui";
-import { useTimeUntilTomorrow } from "../hooks/useTimeUntilTomorrow";
+import { XStack, YStack } from "tamagui";
 import Chain from "./Chain";
 import { useChainData } from "./ChainContext";
-import GameStatusCard from "./GameStatusCard";
+import GameStatus from "./GameStatus";
 import GuessesRemaining from "./GuessesRemaining";
 import Share from "./Share";
 
 export default function Game() {
-  const { userGuesses, correctChain, guessesRemaining, status } = useChainData();
-  const { hours, minutes, seconds } = useTimeUntilTomorrow();
-
-  const isWinner = status === "winner";
-  const isLoser = status === "loser";
-  const gameOver = isWinner || isLoser;
-
-  const nextGameComponent = (
-    <Text>{`Next chain available in ${hours} hours, ${minutes} minutes, ${seconds} seconds`}</Text>
-  );
+  const { currentChain, userGuesses, correctChain, guessesRemaining, status } = useChainData();
+  const gameOver = status === "winner" || status === "loser";
 
   return (
-    <YStack space={16} alignItems="center">
-      <GameStatusCard nextGameComponent={nextGameComponent} />
+    <YStack gap={16} alignItems="center" marginTop={30}>
+      <GameStatus />
+
+      {/* <h2>{`Current chain: ${currentChain.join(" -> ")}`}</h2>
+      <h2>{`Status: ${status}`}</h2> */}
 
       <XStack alignItems="center" justifyContent="center" marginBottom={8}>
         {gameOver ? (

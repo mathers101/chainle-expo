@@ -1,3 +1,4 @@
+import "@/global.css";
 import { defaultConfig } from "@tamagui/config/v4";
 import { Stack } from "expo-router";
 import { createTamagui, TamaguiProvider } from "tamagui";

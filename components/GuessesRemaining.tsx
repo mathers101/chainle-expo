@@ -15,7 +15,10 @@ export default function GuessesRemaining({ guessesRemaining }: { guessesRemainin
       marginBottom={8}
     >
       <Text fontSize={18} fontWeight="600" color={textColor} textAlign="center">
-        Guesses remaining: <Text fontWeight="700">{guessesRemaining}</Text>
+        Guesses remaining:{" "}
+        <Text fontWeight="700" color={textColor}>
+          {guessesRemaining}
+        </Text>
       </Text>
     </Card>
   );
