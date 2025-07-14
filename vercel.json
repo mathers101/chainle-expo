@@ -4,6 +4,12 @@
   "devCommand": "expo",
   "cleanUrls": true,
   "framework": null,
+  "redirects": [
+    {
+      "source": "http://chainle-game.vercel.app/:path*",
+      "destination": "https://chainle-game.vercel.app/:path*"
+    }
+  ],
   "rewrites": [
     {
       "source": "/:path*",
