@@ -1,8 +1,9 @@
 {
   "expo": {
-    "name": "expo-app",
-    "slug": "expo-app",
+    "name": "Chainle",
+    "slug": "chainle",
     "version": "1.0.0",
+    "description": "Play Chainle, the daily word chain puzzle game. Complete the chain by filling in common two-word phrases!",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "expoapp",
@@ -13,7 +14,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true
@@ -21,14 +22,22 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/icon.png",
+      "meta": {
+        "name": "Chainle",
+        "description": "Play Chainle, the daily word chain puzzle game. Complete the chain by filling in common two-word phrases!",
+        "themeColor": "#ffffff",
+        "og:title": "Chainle",
+        "og:description": "Play Chainle, the daily word chain puzzle game. Complete the chain by filling in common two-word phrases!",
+        "twitter:card": "summary_large_image"
+      }
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
