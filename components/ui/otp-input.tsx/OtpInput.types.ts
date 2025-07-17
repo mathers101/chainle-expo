@@ -1,4 +1,12 @@
-import { ColorValue, TextInputProps, TextProps, TextStyle, ViewStyle } from "react-native";
+import {
+  ColorValue,
+  NativeSyntheticEvent,
+  TextInputKeyPressEventData,
+  TextInputProps,
+  TextProps,
+  TextStyle,
+  ViewStyle,
+} from "react-native";
 
 export interface OtpInputProps {
   text?: string;
@@ -12,7 +20,7 @@ export interface OtpInputProps {
   onBlur?: () => void;
   cursorStyle?: "default" | "pointer" | "not-allowed";
   onEnterKeyPress?: () => void;
-  onBackspaceKeyPress?: () => void;
+  onBackspaceKeyPress?: (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => void;
   animatedInputIndex?: number;
   blurOnFilled?: boolean;
   hideStick?: boolean;

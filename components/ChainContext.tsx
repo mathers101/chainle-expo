@@ -97,7 +97,8 @@ export function ChainProvider({ children, correctChain, savedData }: PropsWithCh
         };
       }
       case "confirmGuess": {
-        const { currentGuess } = action.payload;
+        const { currentGuess } = state;
+        if (!currentGuess) return state;
         const guess = currentGuess.map((word: string) => word.trim().toLowerCase());
 
         return {
@@ -173,22 +174,21 @@ export function ChainProvider({ children, correctChain, savedData }: PropsWithCh
   const currentHintIndex = hints?.at(userGuesses.length - 1);
 
   const confirmGuess = useCallback(() => {
-    dispatch({ type: "confirmGuess", payload: { currentGuess } });
-  }, [currentGuess]);
+    dispatch({ type: "confirmGuess" });
+  }, []);
 
-  const setGuess = useCallback(
-    (index: number, guess: string) => {
-      dispatch({ type: "setGuess", payload: { index, guess, currentChain } });
-    },
-    [currentChain]
-  );
+  const setGuess = useCallback((index: number, guess: string) => {
+    dispatch({ type: "setGuess", payload: { index, guess } });
+  }, []);
 
   const selectHintIndex = useCallback((index: number) => {
     dispatch({ type: "selectHintIndex", payload: { index } });
   }, []);
 
   const resetGame = useCallback(() => dispatch({ type: "resetGame" }), []);
+
   const resetGuess = useCallback(() => dispatch({ type: "setCurrentGuess", payload: currentChain }), [currentChain]);
+
   const setStatus = useCallback((status: Status) => {
     dispatch({ type: "setStatus", payload: status });
   }, []);

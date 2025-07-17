@@ -13,7 +13,7 @@ import GameInput from "./ui/GameInput";
 import { Theme } from "./ui/otp-input.tsx";
 
 export default function WordDisplay({ index }: { index: number }) {
-  const { status, correctChain, currentChain, solvedByIndex, guessesRemaining, inputRefs } = useChainData();
+  const { status, correctChain, currentChain, solvedByIndex, guessesRemaining } = useChainData();
   const { selectHintIndex } = useChainApi();
 
   const isInitialWord = index === 0 || index === correctChain.length - 1;
@@ -52,7 +52,7 @@ export default function WordDisplay({ index }: { index: number }) {
         true // reverse
       );
     }
-  }, [status]);
+  }, [status, translateY]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],

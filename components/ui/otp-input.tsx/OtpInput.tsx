@@ -136,7 +136,7 @@ export const OtpInput = forwardRef<OtpInputRef, OtpInputProps>((props, ref) => {
           if (e.nativeEvent.key === "Enter" || e.nativeEvent.key === "Return") {
             onEnterKeyPress?.();
           } else if (e.nativeEvent.key === "Backspace") {
-            onBackspaceKeyPress?.();
+            onBackspaceKeyPress?.(e);
           }
         }}
         caretHidden={Platform.OS === "ios"}

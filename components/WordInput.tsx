@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { NativeSyntheticEvent, TextInputKeyPressEventData } from "react-native";
 import { useChainApi, useChainData } from "./ChainContext";
 import GameInput from "./ui/GameInput";
 
@@ -35,8 +36,9 @@ export default function WordInput({ index }: { index: number }) {
   const previousInputRef =
     (previousInputRefIndex !== undefined ? inputRefs.current[previousInputRefIndex] : undefined) ?? undefined;
 
-  const onBackspaceKeyPress = () => {
+  const onBackspaceKeyPress = (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
     if (value.length === currentlyRevealedRef.current.length) {
+      e.preventDefault();
       previousInputRef?.focus();
     }
   };

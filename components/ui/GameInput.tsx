@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { NativeSyntheticEvent, StyleSheet, TextInputKeyPressEventData } from "react-native";
 import { OtpInput, OtpInputRef, Theme } from "./otp-input.tsx";
 
 interface GameInputProps {
@@ -9,7 +9,7 @@ interface GameInputProps {
   onChange?: (val: string) => void;
   onPress?: () => void;
   onEnterKeyPress?: () => void;
-  onBackspaceKeyPress?: () => void;
+  onBackspaceKeyPress?: (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => void;
   nextInputRef?: OtpInputRef;
   cursorStyle?: "default" | "pointer" | "not-allowed";
   disabled?: boolean;

@@ -3,20 +3,15 @@ import Chain, { MAX_WIDTH } from "./Chain";
 import { useChainData } from "./ChainContext";
 import GameStatus from "./GameStatus";
 import GuessesRemaining from "./GuessesRemaining";
-import Share from "./Share";
 
 export default function Game() {
-  const { userGuesses, correctChain, guessesRemaining, status } = useChainData();
+  const { guessesRemaining, status } = useChainData();
   const gameOver = status === "winner" || status === "loser";
 
   return (
     <YStack gap={16} marginHorizontal="auto" marginVertical={12} maxWidth={MAX_WIDTH}>
       <GameStatus />
-      {gameOver ? (
-        <Share correctChain={correctChain} userGuesses={userGuesses} />
-      ) : (
-        <GuessesRemaining guessesRemaining={guessesRemaining} />
-      )}
+      {!gameOver && <GuessesRemaining guessesRemaining={guessesRemaining} />}
       <Chain />
     </YStack>
   );

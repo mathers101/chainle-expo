@@ -1,14 +1,16 @@
 import { useChainApi, useChainData } from "@/components/ChainContext";
 import { useEffect, useState } from "react";
-import { Button, XStack, YStack } from "tamagui";
+import { XStack, YStack } from "tamagui";
+import ConfirmButton from "./ConfirmButton";
+import Share from "./Share";
 import WordDisplay from "./WordDisplay";
 import WordInput from "./WordInput";
 
 export const MAX_WIDTH = 380;
 
 export default function Chain() {
-  const { solvedByIndex, currentChain, status, currentGuessValid } = useChainData();
-  const { confirmGuess, resetGame, setStatus, resetGuess } = useChainApi();
+  const { solvedByIndex, currentChain, status, currentGuessValid, correctChain, userGuesses } = useChainData();
+  const { confirmGuess, setStatus, resetGuess } = useChainApi();
 
   const initialRevealedIndexes =
     status === "guessing"
@@ -69,24 +71,9 @@ export default function Chain() {
         ))}
       </YStack>
       {gameOver ? (
-        <Button
-          style={{ width: "100%", height: 54, backgroundColor: "#FCA5A5", color: "#7F1D1D" }} // bg-red-300 text-red-900
-          size="$5"
-          fontWeight="700"
-          onPress={resetGame}
-        >
-          Reset Game
-        </Button>
+        <Share correctChain={correctChain} userGuesses={userGuesses} />
       ) : (
-        <Button
-          style={{ width: "100%", height: 54, backgroundColor: "#93C5FD", color: "#1e3a8a" }} // bg-blue-300 text-blue-900
-          size="$5"
-          fontWeight="700"
-          disabled={status !== "guessing" || !currentGuessValid}
-          onPress={handleConfirmGuess}
-        >
-          Confirm Guess
-        </Button>
+        <ConfirmButton handleConfirmGuess={handleConfirmGuess} />
       )}
     </YStack>
   );

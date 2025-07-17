@@ -1,6 +1,7 @@
 import { useTimeUntilTomorrow } from "@/hooks/useTimeUntilTomorrow";
+import { Pressable } from "react-native";
 import { Card, Text, YStack } from "tamagui";
-import { useChainData } from "./ChainContext";
+import { useChainApi, useChainData } from "./ChainContext";
 
 const NextGameComponent = () => {
   const { hours, minutes, seconds } = useTimeUntilTomorrow();
@@ -58,10 +59,11 @@ function StatusMessage({ isWinner, isLoser, isSelecting }: StatusMessageProps) {
 function WinnerMessage() {
   return (
     <YStack alignItems="center" gap={4}>
-      <Text color="#065f46" fontWeight="700" fontSize={20}>
+      <Text color="#065f46" fontWeight={700} fontSize={20}>
         🎉 Congratulations! 🎉
       </Text>
       <NextGameComponent />
+      <ResetButton />
     </YStack>
   );
 }
@@ -69,17 +71,18 @@ function WinnerMessage() {
 function LoserMessage() {
   return (
     <YStack alignItems="center" gap={4}>
-      <Text color="#7f1d1d" fontWeight="700" fontSize={20}>
+      <Text color="#7f1d1d" fontWeight={700} fontSize={20}>
         Game over
       </Text>
       <NextGameComponent />
+      <ResetButton />
     </YStack>
   );
 }
 
 function SelectingMessage() {
   return (
-    <Text color="#78350f" fontWeight="600" fontSize={18}>
+    <Text color="#78350f" fontWeight={600} fontSize={18}>
       Select a word to reveal a letter!
     </Text>
   );
@@ -87,8 +90,19 @@ function SelectingMessage() {
 
 function DefaultMessage() {
   return (
-    <Text color="#1e3a8a" fontWeight="600" fontSize={18}>
+    <Text color="#1e3a8a" fontWeight={600} fontSize={18}>
       Attempt to guess the entire chain of words!
     </Text>
+  );
+}
+
+function ResetButton() {
+  const { resetGame } = useChainApi();
+  return (
+    <Pressable onPress={resetGame}>
+      <Text fontWeight={600} fontSize={14}>
+        Reset game
+      </Text>
+    </Pressable>
   );
 }
