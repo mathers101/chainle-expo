@@ -82,7 +82,7 @@ function LoserMessage() {
 
 function SelectingMessage() {
   return (
-    <Text color="#78350f" fontWeight={600} fontSize={18}>
+    <Text alignItems="center" color="#78350f" fontWeight={600} fontSize={18}>
       Select a word to reveal a letter!
     </Text>
   );
@@ -90,7 +90,7 @@ function SelectingMessage() {
 
 function DefaultMessage() {
   return (
-    <Text color="#1e3a8a" fontWeight={600} fontSize={18}>
+    <Text alignItems="center" color="#1e3a8a" fontWeight={600} fontSize={18}>
       Attempt to guess the entire chain of words!
     </Text>
   );
