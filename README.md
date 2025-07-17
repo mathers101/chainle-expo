@@ -12,10 +12,10 @@ Chainle is a daily puzzle game where players complete a chain of words using val
 
 ## Technologies
 
-- Vite
-- React 19
+- Expo
+- React Native
 - TypeScript
-- Tailwind CSS
+- NativeWind
 - Supabase (storage, authentication, puzzle distribution)
 
 ## Development
@@ -24,4 +24,5 @@ Chainle is a daily puzzle game where players complete a chain of words using val
 
 ```bash
 npm install
+npx expo start
 ```
